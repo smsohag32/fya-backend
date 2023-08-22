@@ -19,6 +19,7 @@ const blogsInfoSchema = new Schema({
   },
 });
 
-const BlogsInfo = models.BlogsInfo || model("BlogsInfo", blogsInfoSchema);
+const blogsInfo = models.blogsInfo || model("blogsInfo", blogsInfoSchema);
 
-export default BlogsInfo;
+
+module.exports = blogsInfo;

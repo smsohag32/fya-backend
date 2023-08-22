@@ -59,6 +59,6 @@ const workOrderSchema = new Schema({
   },
 });
 
-const workOrders = models.workOrders || model("workOrders", workOrderSchema);
+const WorkOrders = models.workorders || model("workorders", workOrderSchema);
 
-export default workOrders;
+module.exports = WorkOrders;

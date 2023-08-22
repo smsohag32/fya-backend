@@ -19,6 +19,6 @@ const usersSchema = new Schema({
   },
 });
 
-const usersInfo = models.usersInfo || model("usersInfo", usersSchema);
+const usersInfo = models.usersinfo || model("usersinfo", usersSchema);
 
-export default usersInfo;
+module.exports =  usersInfo;

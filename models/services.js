@@ -61,4 +61,4 @@ const servicesSchema = new Schema({
 
 const services = models.services || model("services", servicesSchema);
 
-export default services;
+module.exports =  services;

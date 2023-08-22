@@ -13,4 +13,4 @@ const expertSchema = new Schema({
 
 const experts = models.experts || model("experts", expertSchema);
 
-export default experts;
+module.exports =  experts;

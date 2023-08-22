@@ -48,4 +48,4 @@ const productSchema = new Schema({
 
 const products = models.products || model("products", productSchema);
 
-export default products;
+module.exports = products;
