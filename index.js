@@ -5,6 +5,7 @@ const { connectDB } = require("./config/dbConfig");
 const port = process.env.PORT || 3000;
 const workshopRoutes = require("./routes/workshopRoute.js");
 const morgan = require("morgan");
+const { default: mongoose } = require("mongoose");
 
 // setting middlewares
 const corsOptions = {
@@ -12,7 +13,14 @@ const corsOptions = {
   credentials: true,
   optionSuccessStatus: 200,
 };
-
+mongoose
+  .connect(process.env.DB_URI)
+  .then(() => {
+    console.log("db connected");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan("dev"));
@@ -25,5 +33,4 @@ app.use("/api/v1/auth", workshopRoutes);
 
 app.listen(port, async () => {
   console.log("server is running");
-  await connectDB();
 });
