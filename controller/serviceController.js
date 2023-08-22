@@ -1,5 +1,4 @@
-
-const services  = require("../models/services.js");
+const services = require("../models/services.js");
 
 const getAllServices = async (req, res) => {
   try {
@@ -10,27 +9,14 @@ const getAllServices = async (req, res) => {
   }
 };
 
-
 const getService = async (req, res) => {
-const id = req.params.id
-  try{
+  const id = req.params.id;
+  try {
     const service = await services.findById(id);
-    res.send(service)
-  }catch(error){
-    res.status(500).send(error.message)
+    res.send(service);
+  } catch (error) {
+    res.status(500).send(error.message);
   }
 };
 
-const searchService = async (req, res) => {
-const id = req.query.text
-  try{
-    const service = await services.findById(id);
-    res.send(service)
-  }catch(error){
-    res.status(500).send(error.message)
-  }
-};
-
-
-
-module.exports = {getAllServices, getService};
+module.exports = { getAllServices, getService };
