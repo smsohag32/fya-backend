@@ -1,10 +1,10 @@
 
-const Workshop = require("../models/WorkshopInfo");
+const Workshop = require("../models/WorkshopInfo.js");
 
 const getAllWorkshop = async (req, res) => {
   try {
     const workshops = await Workshop.find();
-    res.status(200).json(workshops);
+    res.send(workshops);
   } catch (error) {
     res.status(500).send(error.message);
   }

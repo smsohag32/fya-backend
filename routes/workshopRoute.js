@@ -1,5 +1,5 @@
 const express = require("express");
-const getAllWorkshop = require("../controller/workshop.controller");
+const getAllWorkshop = require("../controller/workshopController.js");
 const router = express.Router();
 
 
