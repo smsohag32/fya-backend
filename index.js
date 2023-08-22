@@ -4,8 +4,9 @@ const app = express();
 const { connectDB } = require("./config/dbConfig");
 const port = process.env.PORT || 3000;
 const workshopRoutes = require("./routes/workshopRoute.js");
+const serviceRote = require("./routes/serviceRoute.js");
 const morgan = require("morgan");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
 // setting middlewares
 const corsOptions = {
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/auth", workshopRoutes);
+app.use("/api/v1/auth", serviceRote);
 
 app.listen(port, async () => {
   console.log("server is running");
