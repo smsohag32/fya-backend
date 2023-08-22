@@ -8,6 +8,5 @@ exports.connectDB = async () => {
   } catch (error) {
     console.log("database is not connected");
     console.log(error.message);
-    process.exit(1);
   }
 };

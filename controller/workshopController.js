@@ -1,4 +1,3 @@
-
 const Workshop = require("../models/WorkshopInfo.js");
 
 const getAllWorkshop = async (req, res) => {
@@ -9,6 +8,5 @@ const getAllWorkshop = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
-
 
 module.exports = getAllWorkshop;
