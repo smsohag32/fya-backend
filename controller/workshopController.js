@@ -8,15 +8,15 @@ const getAllWorkshop = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
-const getWorkshop = async (req, res) => {
-  const id = req.params.id;
 
+const getWorkshop = async (req, res) => {
   try {
-    const workshops = await Workshop.findById(id);
-    res.send(workshops);
+    const id = req.params.id;
+    const workshop = await Workshop.findById(id);
+    res.send(workshop);
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
 
-module.exports = (getAllWorkshop, getWorkshop);
+module.exports = { getAllWorkshop, getWorkshop };

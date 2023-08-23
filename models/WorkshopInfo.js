@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const { Schema, model, models } = require("mongoose");
 
-const workshopSchema = new mongoose.Schema({
+const workshopSchema = new Schema({
   name: {
     type: String,
     required: [true, "name is required."],
@@ -47,4 +47,6 @@ const workshopSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("workshopinfos", workshopSchema);
+const Workshop = models.workshopinfos || model("workshopinfos", workshopSchema);
+
+module.exports = Workshop;
