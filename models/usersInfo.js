@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+const  { Schema, model, models } = require("mongoose");
 
 const usersSchema = new Schema({
   name: {
@@ -15,7 +15,6 @@ const usersSchema = new Schema({
   },
   role: {
     type: String,
-    required: [true, "Role is required."],
   },
 });
 

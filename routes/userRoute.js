@@ -1,11 +1,12 @@
 const express = require("express");
+const {userPost, getUserRole, jwtTokenPost} = require("../controller/userController");
 const router = express.Router();
-const {postUser} = require('../controller/userController.js')
 
 
 
-router.get("/users", postUser);
 
-
+router.put("/users", userPost);
+router.get("/users/:email", getUserRole);
+router.post("/users/jwt", jwtTokenPost);
 
 module.exports = router;

@@ -2,11 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const { connectDB } = require("./config/dbConfig");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 const workshopRoutes = require("./routes/workshopRoute.js");
+const serviceRoute = require("./routes/serviceRoute.js");
 const morgan = require("morgan");
-const { default: mongoose } = require("mongoose");
-
+const mongoose = require("mongoose");
+const userRoute = require('./routes/userRoute.js')
 // setting middlewares
 const corsOptions = {
   origin: "*",
@@ -30,6 +31,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/auth", workshopRoutes);
+app.use("/api/v1/auth", serviceRoute);
+app.use("/api/v1/auth", userRoute);
 
 app.listen(port, async () => {
   console.log("server is running");
