@@ -7,7 +7,7 @@ const workshopRoutes = require("./routes/workshopRoute.js");
 const serviceRoute = require("./routes/serviceRoute.js");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-
+const userRoute = require('./routes/userRoute.js')
 // setting middlewares
 const corsOptions = {
   origin: "*",
@@ -32,6 +32,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/auth", workshopRoutes);
 app.use("/api/v1/auth", serviceRoute);
+app.use("/api/v1/auth", userRoute);
 
 app.listen(port, async () => {
   console.log("server is running");
