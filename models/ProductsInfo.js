@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+const { Schema, model, models } = require("mongoose");
 
 const productSchema = new Schema({
   workShop_id: {

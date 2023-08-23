@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+const { Schema, model, models } =  require("mongoose");
 
 const workOrderSchema = new Schema({
   title: {
@@ -7,7 +7,6 @@ const workOrderSchema = new Schema({
   },
   workshop_id: {
     type: String,
-    required: [true, "workshop is required."],
   },
   service_name: {
     type: String,
