@@ -21,10 +21,6 @@ const servicesSchema = new Schema({
     type: String,
     required: [true, "service_description is required."],
   },
-  service_description: {
-    type: String,
-    required: [true, "service_description is required."],
-  },
   service_duration: {
     type: String,
     required: [true, "service_duration is required."],
@@ -35,15 +31,9 @@ const servicesSchema = new Schema({
   },
   benefits: {
     type: String,
-    required: [true, "benefits is required."],
   },
   customer_reviews: {
     type: [],
-    required: [true, "customer_reviews is required."],
-  },
-  benefits: {
-    type: String,
-    required: [true, "service_price is required."],
   },
   workshop_image: {
     type: String,
@@ -55,7 +45,6 @@ const servicesSchema = new Schema({
   },
   warranty: {
     type: String,
-    required: [true, "warranty is required."],
   },
   workshop_email: {
     type: String,
