@@ -1,4 +1,4 @@
-const  { Schema, model, models } = require("mongoose");
+const { Schema, model, models } = require("mongoose");
 
 const servicesSchema = new Schema({
   title: {
@@ -57,8 +57,11 @@ const servicesSchema = new Schema({
     type: String,
     required: [true, "warranty is required."],
   },
+  workshop_email: {
+    type: String,
+  },
 });
 
 const services = models.services || model("services", servicesSchema);
 
-module.exports =  services;
+module.exports = services;

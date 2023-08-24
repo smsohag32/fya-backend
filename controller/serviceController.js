@@ -18,5 +18,14 @@ const getService = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+const postService = async (req, res) => {
+  try {
+    const newService = req.body;
+    const service = await services.create(newOrder);
+    res.send(service);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
-module.exports = { getAllServices, getService };
+module.exports = { getAllServices, getService, postService };

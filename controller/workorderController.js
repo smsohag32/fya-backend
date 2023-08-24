@@ -3,7 +3,7 @@ const WorkOrders = require("../models/WorkOrders");
 const getWorkOrders = async (req, res) => {
   try {
     const email = req.params.email;
-    const query = {email: email}
+    const query = { workshop_email: email };
     const workshops = await WorkOrders.find(query);
     res.send(workshops);
   } catch (error) {
@@ -11,14 +11,13 @@ const getWorkOrders = async (req, res) => {
   }
 };
 const postOrder = async (req, res) => {
-
   try {
     const newOrder = req.body;
-    const workshop = await WorkOrders.save(newOrder);
+    const workshop = await WorkOrders.create(newOrder);
     res.send(workshop);
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
 
-module.exports = {getWorkOrders, postOrder};
+module.exports = { getWorkOrders, postOrder };
