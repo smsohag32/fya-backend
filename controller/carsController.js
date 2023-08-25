@@ -1,11 +1,11 @@
 const carsinfos = require("../models/CarsInfo");
 
 const getCars = async (req, res) => {
-  const email = req.params.email;
   try {
+    const email = req.params.email;
     const query = { email: email };
-    const service = await carsinfos.find(query);
-    res.send(service);
+    const cars = await carsinfos.find(query);
+    res.send(cars);
   } catch (error) {
     res.status(500).send(error.message);
   }
