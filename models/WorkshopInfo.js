@@ -27,23 +27,23 @@ const workshopSchema = new Schema({
   },
   services: {
     type: [],
-    required: [true, "services is required."],
   },
   products: {
     type: [],
-    required: [true, "service_price is required."],
-  },
-  workshopCode: {
-    type: String,
-    required: [true, "workshopCode is required."],
   },
   rating: {
     type: String,
-    required: [true, "rating is required."],
   },
   location: {
     type: String,
+   
+  },
+  workshop_email: {
+    type: String,
     required: [true, "location is required."],
+  },
+  map_link: {
+    type: String,
   },
 });
 
