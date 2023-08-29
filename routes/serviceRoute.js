@@ -7,7 +7,7 @@ const {
 } = require("../controller/serviceController.js");
 
 router.get("/services", getAllServices);
-router.post("/services", postService);
+router.post("/services/:email", postService);
 router.get("/services/:id", getService);
 
 module.exports = router;

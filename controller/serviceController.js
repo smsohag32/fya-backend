@@ -21,7 +21,7 @@ const getService = async (req, res) => {
 const postService = async (req, res) => {
   try {
     const newService = req.body;
-    const service = await services.create(newOrder);
+    const service = await services.create(newService);
     res.send(service);
   } catch (error) {
     res.status(500).send(error.message);
