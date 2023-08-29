@@ -18,7 +18,7 @@ const workshopSchema = new Schema({
     required: [true, "email is required."],
   },
   phone: {
-    type: Number,
+    type: String,
     required: [true, "phone is required."],
   },
   description: {
@@ -36,13 +36,15 @@ const workshopSchema = new Schema({
   },
   location: {
     type: String,
-   
   },
   workshop_email: {
     type: String,
     required: [true, "location is required."],
   },
   map_link: {
+    type: [],
+  },
+  status: {
     type: String,
   },
 });
