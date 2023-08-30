@@ -5,7 +5,7 @@ const {
   addWorkshop,
   searchWorkshop,
   searchByTab,
-  updateStatus
+  updateStatus,
 } = require("../controller/workshopController.js");
 const router = express.Router();
 

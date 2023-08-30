@@ -3,7 +3,7 @@ const WorkOrders = require("../models/WorkOrders");
 const getWorkOrders = async (req, res) => {
   try {
     const email = req.params.email;
-    const query = {email: email}
+    const query = { workshop_email: email };
     const workshops = await WorkOrders.find(query);
     res.send(workshops);
   } catch (error) {
@@ -11,10 +11,9 @@ const getWorkOrders = async (req, res) => {
   }
 };
 const postOrder = async (req, res) => {
-
   try {
     const newOrder = req.body;
-    const workshop = await WorkOrders.save(newOrder);
+    const workshop = await WorkOrders.create(newOrder);
     res.send(workshop);
   } catch (error) {
     res.status(500).send(error.message);
@@ -22,7 +21,6 @@ const postOrder = async (req, res) => {
 };
 
 const updateStatus = async (req, res) => {
-
   try {
     const updateInformation = req.body;
     const id = req.params.id;
@@ -30,18 +28,18 @@ const updateStatus = async (req, res) => {
     const option = { upsert: true };
     const updatedDoc = {
       $set: {
-        lat: updateInformation?.lat || '',
-        lon: updateInformation?.lon || '',
+        lat: updateInformation?.lat || "",
+        lon: updateInformation?.lon || "",
         status: updateInformation?.status,
-        message: updateInformation?.message || '',
-        technicain: updateInformation?.technician || ''
+        message: updateInformation?.message || "",
+        technicain: updateInformation?.technician || "",
       },
     };
     const result = await userInfo.updateOne(query, updatedDoc, option);
-    res.send({message: 'appointment status update done'});
+    res.send({ message: "appointment status update done" });
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
 
-module.exports = {getWorkOrders, postOrder, updateStatus};
+module.exports = { getWorkOrders, postOrder, updateStatus };

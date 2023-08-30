@@ -54,6 +54,9 @@ const workOrderSchema = new Schema({
   lon: {
     type: String,
   },
+  workshop_email: {
+    type: String,
+  },
 });
 
 const WorkOrders = models.workorders || model("workorders", workOrderSchema);
