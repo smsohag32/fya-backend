@@ -42,6 +42,18 @@ const workOrderSchema = new Schema({
   status: {
     type: String,
   },
+  user_lat: {
+    type: String,
+  },
+  user_lon: {
+    type: String,
+  },
+  lat: {
+    type: String,
+  },
+  lon: {
+    type: String,
+  },
 });
 
 const WorkOrders = models.workorders || model("workorders", workOrderSchema);
