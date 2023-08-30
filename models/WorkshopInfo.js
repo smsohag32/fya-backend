@@ -45,6 +45,9 @@ const workshopSchema = new Schema({
   map_link: {
     type: String,
   },
+  status: {
+    type: String,
+  },
 });
 
 const Workshop = models.workshopinfos || model("workshopinfos", workshopSchema);

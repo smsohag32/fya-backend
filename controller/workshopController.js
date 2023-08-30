@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const Workshop = require("../models/WorkshopInfo.js");
 const usersInfo = require("../models/usersInfo.js");
 
@@ -88,4 +89,24 @@ const searchWorkshop = async (req, res) =>{
       }
 }
 
-module.exports = { getAllWorkshop, getWorkshop, addWorkshop,searchByTab,searchWorkshop };
+
+const updateStatus = async (req, res) => {
+
+  try {
+    const status = req.body;
+    const id = req.params.id;
+    const query = { _id: id};
+    const option = { upsert: true };
+    const updatedDoc = {
+      $set: {
+        status: status.status
+      },
+    };
+    const result = await Workshop.updateOne(query, updatedDoc, option);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+module.exports = { getAllWorkshop, getWorkshop, addWorkshop,searchByTab,searchWorkshop, updateStatus };
