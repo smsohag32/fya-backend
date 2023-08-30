@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const Workshop = require("../models/WorkshopInfo.js");
 const usersInfo = require("../models/usersInfo.js");
 
@@ -61,4 +62,47 @@ const searchByTab = async (req, res) => {
   }
 };
 
-module.exports = { getAllWorkshop, getWorkshop, addWorkshop, searchByTab };
+const searchWorkshop = async (req, res) => {
+  try {
+    const indexKey = { workshopName: 1 };
+    const indexOption = { workshop: "workshopLocation" };
+
+    const indexResult = await Workshop.createIndexes(indexKey, indexOption);
+
+    const searchText = req.query.title;
+    const result = await Workshop.find({
+      title: { $regex: searchText, $options: "i" },
+    });
+
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+const updateStatus = async (req, res) => {
+  try {
+    const status = req.body;
+    const id = req.params.id;
+    const query = { _id: id };
+    const option = { upsert: true };
+    const updatedDoc = {
+      $set: {
+        status: status.status,
+      },
+    };
+    const result = await Workshop.updateOne(query, updatedDoc, option);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+module.exports = {
+  getAllWorkshop,
+  getWorkshop,
+  addWorkshop,
+  searchByTab,
+  searchWorkshop,
+  updateStatus,
+};

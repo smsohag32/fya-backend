@@ -39,7 +39,7 @@ const workOrderSchema = new Schema({
   vehicle: {
     type: String,
   },
-  workshop_email: {
+  status: {
     type: String,
   },
 });
