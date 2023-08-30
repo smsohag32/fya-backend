@@ -47,9 +47,6 @@ const workshopSchema = new Schema({
   status: {
     type: String,
   },
-  status: {
-    type: String,
-  },
 });
 
 const Workshop = models.workshopinfos || model("workshopinfos", workshopSchema);
