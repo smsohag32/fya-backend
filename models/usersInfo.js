@@ -13,6 +13,17 @@ const usersSchema = new Schema({
     type: String,
     required: [true, "Email is required."],
   },
+  gender: {
+    type: String,
+   
+  },
+  phone: {
+    type: String,
+   
+  },
+  address: {
+    type: String,
+  },
   role: {
     type: String,
   },
