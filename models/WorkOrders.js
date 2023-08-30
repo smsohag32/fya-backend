@@ -39,6 +39,9 @@ const workOrderSchema = new Schema({
   vehicle: {
     type: String,
   },
+  status: {
+    type: String,
+  },
 });
 
 const WorkOrders = models.workorders || model("workorders", workOrderSchema);

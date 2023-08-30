@@ -88,4 +88,25 @@ const searchWorkshop = async (req, res) =>{
       }
 }
 
-module.exports = { getAllWorkshop, getWorkshop, addWorkshop,searchByTab,searchWorkshop };
+
+const updateStatus = async (req, res) => {
+
+  try {
+    const status = req.body;
+    console.log(status);
+    const email = req.params.email;
+    const query = { email: email };
+    const option = { upsert: true };
+    const updatedDoc = {
+      $set: {
+        status: status.status
+      },
+    };
+    const result = await Workshop.updateOne(query, updatedDoc, option);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+module.exports = { getAllWorkshop, getWorkshop, addWorkshop,searchByTab,searchWorkshop, updateStatus };

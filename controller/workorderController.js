@@ -21,4 +21,23 @@ const postOrder = async (req, res) => {
   }
 };
 
-module.exports = {getWorkOrders, postOrder};
+const updateStatus = async (req, res) => {
+
+  try {
+    const status = req.body;
+    const email = req.params.email;
+    const query = { email: email };
+    const option = { upsert: true };
+    const updatedDoc = {
+      $set: {
+        status: status.status
+      },
+    };
+    const result = await userInfo.updateOne(query, updatedDoc, option);
+    res.send({message: 'appointment status update done'});
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+module.exports = {getWorkOrders, postOrder, updateStatus};
