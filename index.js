@@ -7,9 +7,11 @@ const workshopRoutes = require("./routes/workshopRoute.js");
 const serviceRoute = require("./routes/serviceRoute.js");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const userRoute = require('./routes/userRoute.js')
-const productRoute = require('./routes/productsRoute.js')
-const workOrderRoute = require('./routes/workOrderRoute.js')
+const userRoute = require("./routes/userRoute.js");
+const productRoute = require("./routes/productsRoute.js");
+const workOrderRoute = require("./routes/workOrderRoute.js");
+const userOrderRoute = require("./routes/userOrderRoute.js");
+const carsRoute = require("./routes/carRoute.js");
 // setting middlewares
 const corsOptions = {
   origin: "*",
@@ -37,6 +39,8 @@ app.use("/api/v1/auth", serviceRoute);
 app.use("/api/v1/auth", userRoute);
 app.use("/api/v1/auth", productRoute);
 app.use("/api/v1/auth", workOrderRoute);
+app.use("/api/v1/auth", userOrderRoute);
+app.use("/api/v1/auth", carsRoute);
 
 app.listen(port, async () => {
   console.log("server is running");
