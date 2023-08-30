@@ -24,13 +24,17 @@ const postOrder = async (req, res) => {
 const updateStatus = async (req, res) => {
 
   try {
-    const status = req.body;
-    const email = req.params.email;
-    const query = { email: email };
+    const updateInformation = req.body;
+    const id = req.params.id;
+    const query = { _id: id };
     const option = { upsert: true };
     const updatedDoc = {
       $set: {
-        status: status.status
+        lat: updateInformation?.lat || '',
+        lon: updateInformation?.lon || '',
+        status: updateInformation?.status,
+        message: updateInformation?.message || '',
+        technicain: updateInformation?.technician || ''
       },
     };
     const result = await userInfo.updateOne(query, updatedDoc, option);

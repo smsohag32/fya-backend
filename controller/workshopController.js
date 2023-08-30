@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const Workshop = require("../models/WorkshopInfo.js");
 const usersInfo = require("../models/usersInfo.js");
 
@@ -93,9 +94,8 @@ const updateStatus = async (req, res) => {
 
   try {
     const status = req.body;
-    console.log(status);
-    const email = req.params.email;
-    const query = { email: email };
+    const id = req.params.id;
+    const query = { _id: id};
     const option = { upsert: true };
     const updatedDoc = {
       $set: {
