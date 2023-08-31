@@ -1,4 +1,4 @@
-const carsinfos = require("../models/CarsInfo");
+const carsinfos = require("../models/CarsInfo.js");
 
 const getCars = async (req, res) => {
   try {
@@ -10,6 +10,7 @@ const getCars = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+
 const postCar = async (req, res) => {
   try {
     const newCar = req.body;

@@ -1,4 +1,4 @@
-const WorkOrders = require("../models/WorkOrders");
+const WorkOrders = require("../models/WorkOrders.js");
 
 const getUserWorkOrder = async (req, res) => {
   try {

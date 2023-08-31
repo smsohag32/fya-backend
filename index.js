@@ -12,6 +12,7 @@ const productRoute = require("./routes/productsRoute.js");
 const workOrderRoute = require("./routes/workOrderRoute.js");
 const userOrderRoute = require("./routes/userOrderRoute.js");
 const carsRoute = require("./routes/carRoute.js");
+const summaryRoute = require('./routes/summaryRoute.js')
 // setting middlewares
 const corsOptions = {
   origin: "*",
@@ -41,6 +42,7 @@ app.use("/api/v1/auth", productRoute);
 app.use("/api/v1/auth", workOrderRoute);
 app.use("/api/v1/auth", userOrderRoute);
 app.use("/api/v1/auth", carsRoute);
+app.use("/api/v1/auth", summaryRoute);
 
 app.listen(port, async () => {
   console.log("server is running");
