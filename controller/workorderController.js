@@ -35,7 +35,7 @@ const updateStatus = async (req, res) => {
         technicain: updateInformation?.technician || "",
       },
     };
-    const result = await userInfo.updateOne(query, updatedDoc, option);
+    const result = await WorkOrders.updateOne(query, updatedDoc, option);
     res.send({ message: "appointment status update done" });
   } catch (error) {
     res.status(500).send(error.message);

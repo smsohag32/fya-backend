@@ -6,10 +6,12 @@ const {
   searchWorkshop,
   searchByTab,
   updateStatus,
+  deleteWorkshop
 } = require("../controller/workshopController.js");
 const router = express.Router();
 
 router.get("/workshops", getAllWorkshop);
+router.delete("/workshops/:id", deleteWorkshop);
 router.get("/workshops/:id", getWorkshop);
 router.put("/workshops/:email", addWorkshop);
 router.patch("/workshops/status/:id", updateStatus);

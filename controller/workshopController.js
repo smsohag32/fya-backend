@@ -21,6 +21,25 @@ const getWorkshop = async (req, res) => {
   }
 };
 
+const deleteWorkshop = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const email = req.body;
+    const query = {email: email.email}
+    const updatedDoc = {
+      $set: {
+        role: 'user'
+      }
+    }
+    const option = {upsert: true}
+    const workshop = await Workshop.deleteOne({_id: id});
+    const userResult = await usersInfo.updateOne(query,updatedDoc, option)
+    res.send({workshop,userResult});
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
 const addWorkshop = async (req, res) => {
   try {
     const newWorkshop = req.body;
@@ -31,13 +50,7 @@ const addWorkshop = async (req, res) => {
       $set: newWorkshop,
     };
 
-    const userRole = {
-      $set: {
-        role: "workshopCenter",
-      },
-    };
     const result = await Workshop.updateOne(query, updatedDoc, option);
-    const roleResult = await usersInfo.updateOne(query, option, userRole);
 
     res.send({ result, roleResult });
   } catch (error) {
@@ -105,4 +118,5 @@ module.exports = {
   searchByTab,
   searchWorkshop,
   updateStatus,
+  deleteWorkshop
 };
