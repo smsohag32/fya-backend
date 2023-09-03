@@ -9,13 +9,25 @@ const blogsInfoSchema = new Schema({
     type: String,
     required: [true, "Author is required."],
   },
+  email: {
+    type: String,
+    required: [true, "email is required."],
+  },
   tags: {
     type: Array,
     required: [true, "Tags are required."],
   },
+  content: {
+    type: String,
+  },
   date: {
-    type: Date,
-    required: [true, "Date is required."],
+    type: String,
+  },
+  comments: {
+    type: [],
+  },
+  likes: {
+    type: Number,
   },
 });
 
