@@ -29,7 +29,7 @@ const likeCount = async (req, res) => {
         if (!updatedBlog) {
             return res.status(404).send('Blog not found');
         }
-        res.send(updatedBlog);
+        res.send({message: "new likes add success"});
          } catch (error) {
         res.status(500).send(error.message);
         }
@@ -46,7 +46,7 @@ const addComment = async (req, res) => {
         if (!updatedBlog) {
             return res.status(404).send('Blog not found');
         }
-        res.send(updatedBlog);
+        res.send({message: 'new comment add success'});
          } catch (error) {
         res.status(500).send(error.message);
         }
