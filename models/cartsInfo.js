@@ -12,11 +12,11 @@ const cartsSchema = new Schema({
   },
   productName: {
     type: String,
-   
+
   },
   productImage: {
     type: String,
-   
+
   },
   description: {
     type: String,

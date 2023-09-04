@@ -1,5 +1,5 @@
 const cartsInfos = require("../models/cartsInfo.js");
-
+const productInfos = require("../models/ProductsInfo.js")
 const getCarts = async (req, res) => {
   try {
       const cartsData = await cartsInfos.find();
@@ -12,7 +12,7 @@ const getCarts = async (req, res) => {
 const getUserCarts = async (req, res) => {
     try {
         
-    const query = { userEmail: req.params.id }
+    const query = { userEmail: req.params.email }
       const cartsData = await cartsInfos.find(query);
         res.send(cartsData);
   } catch (error) {
