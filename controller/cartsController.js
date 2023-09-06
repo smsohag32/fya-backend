@@ -24,8 +24,18 @@ const getUserCarts = async (req, res) => {
 const getCart = async (req, res) => {
   try {
     const id = req.params.id;
-    const blog = await cartsInfos.findById(id);
-    res.send(blog);
+    const cart = await cartsInfos.findById(id);
+    res.send(cart);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+const deleteCart = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = {_id: id}
+    const result = await cartsInfos.deleteOne(query);
+    res.send(result);
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -34,9 +44,18 @@ const getCart = async (req, res) => {
 
 const postCart = async (req, res) => {
   try {
+    const userEmail = req.params.email;
     const newCart = req.body;
-    const cart = await cartsInfos.create(newCart);
-    res.send(cart);
+    const productID = newCart.productID;
+    const query = {userEmail: userEmail}
+    const existingCart = await cartsInfos.findOne(query);
+    if (existingCart && existingCart.productID === productID) {
+      return res.send({ message: 'Product already in the cart' });
+    } else {
+      await cartsInfos.create(newCart);
+      return res.send("add product successfully")
+    }
+  
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -44,4 +63,4 @@ const postCart = async (req, res) => {
 
 
 
-module.exports = { getCarts, postCart ,getCart, getUserCarts};
+module.exports = { getCarts, postCart ,getCart, getUserCarts, deleteCart};

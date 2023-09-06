@@ -42,6 +42,38 @@ const getSummary = async (req, res) => {
         res.status(500).send(error.message);
     }
 }
+const getWorkshopSummary = async (req, res) => {
+    try {
+        const email = req.params.email;
+
+        const query = { workshop_email: email };
+
+        const [
+            totalWorkOrder,
+            completeOrder,
+            pendingOrder,
+            totalPostponOrder,
+            approvedOrder,
+        ] = await Promise.all([
+        
+            workOrderInfo.countDocuments({ status: 'approved', ...query }),
+            workOrderInfo.countDocuments({ status: 'complete', ...query }),
+            workOrderInfo.countDocuments({ status: 'pending', ...query }),
+            workOrderInfo.countDocuments({ status: 'postponed', ...query }),
+            workOrderInfo.countDocuments({ status: 'approved', ...query }),
+        ]);
+
+        res.send({
+            totalWorkOrder,
+            completeOrder,
+            pendingOrder,
+            totalPostponOrder,
+            approvedOrder,
+        });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+}
 
 
-module.exports =  {getSummary}
+module.exports =  {getSummary, getWorkshopSummary}

@@ -7,15 +7,13 @@ const blogsInfoSchema = new Schema({
   },
   author: {
     type: String,
-    required: [true, "Author is required."],
+
   },
   email: {
     type: String,
-    required: [true, "email is required."],
   },
   tags: {
     type: Array,
-    required: [true, "Tags are required."],
   },
   content: {
     type: String,
@@ -27,7 +25,7 @@ const blogsInfoSchema = new Schema({
     type: [],
   },
   likes: {
-    type: Number,
+    type: [],
   },
 });
 
