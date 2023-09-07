@@ -58,22 +58,34 @@ const addWorkshop = async (req, res) => {
   }
 };
 
-const searchByTab = async (req, res) => {
+const searchLocation = async (req, res) => {
   const indexKey = { location: 1 };
   const indexOption = { workshop: "workshopLocation" };
+
   try {
+    const limit = parseInt(req.query.limit) || 10; // Default limit to 10 if not provided
+    const page = parseInt(req.query.page) || 1; // Default page to 1 if not provided
+    const skip = limit * (page - 1);
+
     await Workshop.createIndexes(indexKey, indexOption);
 
     const searchText = req.query.location;
-    const result = await Workshop.find({
+    const query = {
       location: { $regex: searchText, $options: "i" },
-    });
+    };
 
-    res.send(result);
+    const result = await Workshop.find(query)
+      .limit(limit)
+      .skip(skip);
+
+    const totalWorkshop = await Workshop.countDocuments(query);
+
+    res.send({ result, totalWorkshop, currentPage: page, totalPages: Math.ceil(totalWorkshop / limit) });
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
+
 
 const searchWorkshop = async (req, res) => {
   try {
@@ -115,7 +127,7 @@ module.exports = {
   getAllWorkshop,
   getWorkshop,
   addWorkshop,
-  searchByTab,
+  searchLocation,
   searchWorkshop,
   updateStatus,
   deleteWorkshop

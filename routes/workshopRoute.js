@@ -4,7 +4,7 @@ const {
   getWorkshop,
   addWorkshop,
   searchWorkshop,
-  searchByTab,
+  searchLocation,
   updateStatus,
   deleteWorkshop
 } = require("../controller/workshopController.js");
@@ -16,6 +16,6 @@ router.get("/workshops/:id", getWorkshop);
 router.put("/workshops/:email", addWorkshop);
 router.patch("/workshops/status/:id", updateStatus);
 router.get("/workshops/search", searchWorkshop);
-router.get("/workshops/search/division", searchByTab);
+router.get("/workshops/search/division", searchLocation);
 
 module.exports = router;
