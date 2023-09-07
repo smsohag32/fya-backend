@@ -1,4 +1,3 @@
-
 const Workshop = require("../models/WorkshopInfo.js");
 const usersInfo = require("../models/usersInfo.js");
 
@@ -25,16 +24,16 @@ const deleteWorkshop = async (req, res) => {
   try {
     const id = req.params.id;
     const email = req.body;
-    const query = {email: email.email}
+    const query = { email: email.email };
     const updatedDoc = {
       $set: {
-        role: 'user'
-      }
-    }
-    const option = {upsert: true}
-    const workshop = await Workshop.deleteOne({_id: id});
-    const userResult = await usersInfo.updateOne(query,updatedDoc, option)
-    res.send({workshop,userResult});
+        role: "user",
+      },
+    };
+    const option = { upsert: true };
+    const workshop = await Workshop.deleteOne({ _id: id });
+    const userResult = await usersInfo.updateOne(query, updatedDoc, option);
+    res.send({ workshop, userResult });
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -74,18 +73,20 @@ const searchLocation = async (req, res) => {
       location: { $regex: searchText, $options: "i" },
     };
 
-    const result = await Workshop.find(query)
-      .limit(limit)
-      .skip(skip);
+    const result = await Workshop.find(query).limit(limit).skip(skip);
 
     const totalWorkshop = await Workshop.countDocuments(query);
 
-    res.send({ result, totalWorkshop, currentPage: page, totalPages: Math.ceil(totalWorkshop / limit) });
+    res.send({
+      result,
+      totalWorkshop,
+      currentPage: page,
+      totalPages: Math.ceil(totalWorkshop / limit),
+    });
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
-
 
 const searchWorkshop = async (req, res) => {
   try {
@@ -130,5 +131,5 @@ module.exports = {
   searchLocation,
   searchWorkshop,
   updateStatus,
-  deleteWorkshop
+  deleteWorkshop,
 };

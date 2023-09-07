@@ -16,6 +16,23 @@ const userPost = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+const updateUserRole = async (req, res) => {
+  try {
+    const role = req.body;
+    const userEmail = req.params.email;
+    const query = { email: userEmail };
+    const option = { upsert: true };
+    const updatedDoc = {
+      $set: {
+        status: role.role,
+      },
+    };
+    const result = await userInfo.updateOne(query, updatedDoc, option);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
 const jwtTokenPost = async (req, res) => {
   try {
@@ -46,4 +63,30 @@ const getUserRole = async (req, res) => {
   }
 };
 
-module.exports = { userPost, jwtTokenPost, getUserRole };
+const getAllUsers = async (req, res) => {
+  try {
+    const result = await userInfo.find();
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+const deleteUser = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const query = { email: email };
+    const result = await userInfo.deleteOne(query);
+    res.send({ result, user });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+module.exports = {
+  userPost,
+  jwtTokenPost,
+  deleteUser,
+  getUserRole,
+  getAllUsers,
+  updateUserRole,
+};
