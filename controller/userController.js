@@ -37,7 +37,7 @@ const getUserRole = async (req, res) => {
       return res.send({ role: false });
     }
     const query = { email: email };
-    const user = await userInfo.findOne(query).select('role');
+    const user = await userInfo.findOne(query);
 
     const result = { role: user?.role === "workshopCenter" };
     res.send({ result, user });
