@@ -18,6 +18,17 @@ const getService = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+const workshopServices = async (req, res) => {
+  const email = req.query.email;
+  try {
+    const query = { workshop_email: email };
+    const service = await services.find(query);
+    res.send(service);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
 const postService = async (req, res) => {
   try {
     const newService = req.body;
@@ -28,4 +39,4 @@ const postService = async (req, res) => {
   }
 };
 
-module.exports = { getAllServices, getService, postService };
+module.exports = { getAllServices, getService, postService, workshopServices };
