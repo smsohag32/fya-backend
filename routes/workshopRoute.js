@@ -6,7 +6,7 @@ const {
   searchWorkshop,
   searchLocation,
   updateStatus,
-  deleteWorkshop
+  deleteWorkshop,
 } = require("../controller/workshopController.js");
 const router = express.Router();
 
