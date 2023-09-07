@@ -20,15 +20,10 @@ const getService = async (req, res) => {
 };
 const workshopServices = async (req, res) => {
   try {
-    const email = req.query.email;
+    const email = req.params.email;
     const query = { workshop_email: email };
-    const service = await services.find(query);
-
-    if (!service || service.length === 0) {
-      res.send([]);
-    } else {
-      res.send(service);
-    }
+    const result = await services.find(query);
+    res.send(result);
   } catch (error) {
     res.status(500).send(error.message);
   }
