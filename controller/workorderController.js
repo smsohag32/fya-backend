@@ -4,12 +4,13 @@ const getWorkOrders = async (req, res) => {
   try {
     const email = req.params.email;
     const query = { workshop_email: email };
-    const workshops = await WorkOrders.find(query);
+    const workshops = await WorkOrders.find(query).sort({ orderTime: -1 });
     res.send(workshops);
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
+
 const postOrder = async (req, res) => {
   try {
     const newOrder = req.body;

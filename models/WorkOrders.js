@@ -28,6 +28,10 @@ const workOrderSchema = new Schema({
   service_id: {
     type: String,
   },
+  orderTime: {
+    type: Date,
+    default: Date.now,
+  },
   state: {
     type: String,
     required: [true, "service_price is required."],

@@ -37,10 +37,6 @@ const workshopSchema = new Schema({
   location: {
     type: String,
   },
-  workshop_email: {
-    type: String,
-    required: [true, "location is required."],
-  },
   map_link: {
     type: [],
   },
