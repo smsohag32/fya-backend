@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.put("/users/:email", userPost);
 router.get("/users", getAllUsers);
-router.delete("/users", deleteUser);
+router.delete("/users/:email", deleteUser);
 router.get("/users/:email", getUserRole);
 router.post("/users/jwt", jwtTokenPost);
 router.patch("/users/role/:email", updateUserRole);

@@ -24,7 +24,7 @@ const updateUserRole = async (req, res) => {
     const option = { upsert: true };
     const updatedDoc = {
       $set: {
-        status: role.role,
+        role: role.role,
       },
     };
     const result = await userInfo.updateOne(query, updatedDoc, option);
@@ -76,7 +76,7 @@ const deleteUser = async (req, res) => {
     const email = req.params.email;
     const query = { email: email };
     const result = await userInfo.deleteOne(query);
-    res.send({ result, user });
+    res.send(result);
   } catch (error) {
     res.status(500).send(error.message);
   }
