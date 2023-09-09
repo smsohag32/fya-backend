@@ -16,6 +16,7 @@ const summaryRoute = require('./routes/summaryRoute.js')
 const blogsRoute = require('./routes/blogsRoute.js')
 const cartsRoute = require('./routes/cartsRoute.js')
 const mechanicsRoute = require('./routes/mechanicsRoute.js')
+const paymentRoute = require('./routes/paymentRoute.js')
 // setting middlewares
 const corsOptions = {
   origin: "*",
@@ -49,6 +50,7 @@ app.use("/api/v1/auth", summaryRoute);
 app.use("/api/v1/auth", blogsRoute);
 app.use("/api/v1/auth", cartsRoute);
 app.use("/api/v1/auth", mechanicsRoute);
+app.use("/api/v1/auth", paymentRoute);
 
 app.listen(port, async () => {
   console.log("server is running");
