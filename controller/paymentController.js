@@ -1,18 +1,17 @@
 const SSLCommerzPayment = require("sslcommerz-lts");
-const ObjectId = require("mongoose").Types.ObjectId;
+const mongoose = require("mongoose");
 const WorkOrdersInfo = require("../models/WorkOrders.js");
 const confirmOrderCollection = require("../models/confirmOrderCollection.js");
-const store_id = process.env.STORE_ID;
 const store_passwd = process.env.STORE_PASS;
-const is_live = false;
-
+const store_id = process.env.STORE_ID;
+const { ObjectId } = mongoose.Types;
 const initiatePayment = async (req, res) => {
+  const is_live = false;
   try {
     const totalPaymentBDT = req.body.totalPaymentBDT;
     const order = req.body;
     const productId = req.body.itemDetails[0].productID;
 
-    // Generate a unique transaction ID
     const tran_id = new ObjectId().toString();
 
     const data = {
