@@ -4,15 +4,23 @@ const {
   initiatePayment,
   paymentSuccess,
   paymentFailure,
+  paymentCancel,
+  ipnCallback,
 } = require("../controller/paymentController.js");
 
-// Endpoint to initiate payment
-router.post("/user/carts/product/order_api", initiatePayment);
+/// Route for initiating payment
+router.post("/initiate-payment", initiatePayment);
 
-// Endpoint to handle payment success callback
-router.post("/payment/success/:tranId", paymentSuccess);
+// Route for payment success callback
+router.get("/payment/success/:tranId", paymentSuccess);
 
-// Endpoint to handle payment failure callback
-router.post("/payment/fail/:tranId", paymentFailure);
+// Route for payment failure callback
+router.get("/payment/fail/:tranId", paymentFailure);
+
+// Route for payment cancellation callback
+router.get("/payment/cancel", paymentCancel);
+
+// Route for IPN (Instant Payment Notification) callback
+router.post("/ipn", ipnCallback);
 
 module.exports = router;

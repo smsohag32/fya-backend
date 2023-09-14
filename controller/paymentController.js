@@ -1,8 +1,7 @@
 const SSLCommerzPayment = require("sslcommerz-lts");
 const ObjectId = require("mongoose").Types.ObjectId;
-const orderCollection = require("../models/orderModel");
-const confirmOrderCollection = require("../models/confirmOrderCollection.js");
 const WorkOrdersInfo = require("../models/WorkOrders.js");
+const confirmOrderCollection = require("../models/confirmOrderCollection.js");
 const store_id = process.env.STORE_ID;
 const store_passwd = process.env.STORE_PASS;
 const is_live = false;
@@ -17,7 +16,35 @@ const initiatePayment = async (req, res) => {
     const tran_id = new ObjectId().toString();
 
     const data = {
-      // Payment data
+      total_amount: totalPaymentBDT,
+      currency: order.currency,
+      tran_id: tran_id,
+      success_url: `https://fya-backend.vercel.app/api/v1/auth/payment/success/${tran_id}`,
+      fail_url: `https://fya-backend.vercel.app/api/v1/auth/payment/fail/${tran_id}`,
+      cancel_url: "https://fya-backend.vercel.app/api/v1/auth/payment/cancel",
+      ipn_url: "https://fya-backend.vercel.app/api/v1/auth/ipn",
+      shipping_method: "Courier",
+      product_name: "Computer.",
+      product_id: productId,
+      product_category: "machinery",
+      product_profile: "general",
+      cus_name: order.customerName,
+      cus_email: order.customerEmail,
+      cus_add1: order.address,
+      cus_add2: "Dhaka",
+      cus_city: "Dhaka",
+      cus_state: "Dhaka",
+      cus_postcode: "1000",
+      cus_country: "Bangladesh",
+      cus_phone: order.phone,
+      cus_fax: "01711111111",
+      ship_name: "Customer Name",
+      ship_add1: "Dhaka",
+      ship_add2: "Dhaka",
+      ship_city: "Dhaka",
+      ship_state: "Dhaka",
+      ship_postcode: 1000,
+      ship_country: "Bangladesh",
     };
 
     const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
@@ -84,4 +111,31 @@ const paymentFailure = async (req, res) => {
   }
 };
 
-module.exports = { paymentFailure, paymentSuccess, initiatePayment };
+// Handle payment cancellation callback
+const paymentCancel = async (req, res) => {
+  try {
+    // You can handle any necessary cleanup or logging here.
+    res.redirect(`URL for cancellation page`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Payment cancellation processing failed" });
+  }
+};
+
+// Handle IPN (Instant Payment Notification) callback
+const ipnCallback = async (req, res) => {
+  try {
+    res.status(200).send("IPN received and processed successfully");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "IPN processing failed" });
+  }
+};
+
+module.exports = {
+  paymentFailure,
+  paymentSuccess,
+  initiatePayment,
+  paymentCancel,
+  ipnCallback,
+};
