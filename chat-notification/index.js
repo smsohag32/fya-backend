@@ -52,8 +52,8 @@
 
 
 // -----------------mongodb+srv://zubaerjewel:9W7APB7SbKGsMOKg@cluster0.s6bsxrd.mongodb.net/chatapp?retryWrites=true&w=majority
-// server.js
-// server.js
+// glitch live link, https://steep-mountainous-avatar.glitch.me
+// glitch code link, https://glitch.com/edit/#!/steep-mountainous-avatar
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
