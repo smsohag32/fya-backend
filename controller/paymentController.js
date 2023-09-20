@@ -5,12 +5,12 @@ const confirmOrderCollection = require("../models/confirmOrderCollection.js");
 const store_passwd = process.env.STORE_PASS;
 const store_id = process.env.STORE_ID;
 const { ObjectId } = mongoose.Types;
+const is_live = false;
+
 const initiatePayment = async (req, res) => {
-  const is_live = false;
   try {
     const totalPaymentBDT = req.body.totalPaymentBDT;
     const order = req.body;
-    const productId = req.body.itemDetails[0].productID;
 
     const tran_id = new ObjectId().toString();
 
@@ -24,18 +24,18 @@ const initiatePayment = async (req, res) => {
       ipn_url: "https://fya-backend.vercel.app/api/v1/auth/ipn",
       shipping_method: "Courier",
       product_name: "Computer.",
-      product_id: productId,
+      product_id: order?.productID || "0",
       product_category: "machinery",
       product_profile: "general",
-      cus_name: order.customerName,
-      cus_email: order.customerEmail,
-      cus_add1: order.address,
+      cus_name: order?.customerName,
+      cus_email: order?.customerEmail,
+      cus_add1: order?.address,
       cus_add2: "Dhaka",
       cus_city: "Dhaka",
       cus_state: "Dhaka",
       cus_postcode: "1000",
       cus_country: "Bangladesh",
-      cus_phone: order.phone,
+      cus_phone: order?.phone || "00",
       cus_fax: "01711111111",
       ship_name: "Customer Name",
       ship_add1: "Dhaka",
@@ -65,8 +65,6 @@ const initiatePayment = async (req, res) => {
     // Remove previous order information for the user's email
     const user_email = order.customerEmail;
     await WorkOrdersInfo.deleteMany({ user_email: user_email });
-
-    console.log("Redirecting to: ", GatewayPageURL);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Payment initiation failed" });
@@ -77,7 +75,7 @@ const initiatePayment = async (req, res) => {
 const paymentSuccess = async (req, res) => {
   try {
     const tranId = req.params.tranId;
-
+    const query = { transactionId: tranId };
     const result = await confirmOrderCollection.updateOne(
       { transactionId: tranId },
       {

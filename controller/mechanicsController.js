@@ -1,9 +1,8 @@
 const mechanicsInfos = require("../models/mechanicsInfos.js");
 
-
 const getMechanicsData = async (req, res) => {
-    try {
-      const query = {workshop_email: req.params.email}
+  try {
+    const query = { workshop_email: req.params.email };
     const mechanicsData = await mechanicsInfos.find(query);
     res.send(mechanicsData);
   } catch (error) {
@@ -11,16 +10,14 @@ const getMechanicsData = async (req, res) => {
   }
 };
 
-
 const getSingleMechanics = async (req, res) => {
-    try {
-
+  try {
     const mechanic = await mechanicsInfos.findById(req.params.id);
     res.send(mechanic);
   } catch (error) {
     res.status(500).send(error.message);
   }
-}
+};
 
 const getAllMechanics = async (req, res) => {
   try {
@@ -30,8 +27,19 @@ const getAllMechanics = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+const postMechanics = async (req, res) => {
+  try {
+    const newM = req.body;
+    const result = await mechanicsInfos.create(newM);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
-
-
-
-module.exports = { getMechanicsData ,getAllMechanics, getSingleMechanics};
+module.exports = {
+  getMechanicsData,
+  getAllMechanics,
+  getSingleMechanics,
+  postMechanics,
+};

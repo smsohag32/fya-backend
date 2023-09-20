@@ -37,6 +37,9 @@ const confirmSchema = new Schema({
   address: {
     type: String,
   },
+  paidStatus: {
+    type: String,
+  },
 });
 
 const confirmorders =
