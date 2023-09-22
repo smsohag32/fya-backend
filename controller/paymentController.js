@@ -84,7 +84,9 @@ const paymentSuccess = async (req, res) => {
     );
 
     if (result.modifiedCount > 0) {
-      res.redirect(`URL for success page`);
+      res.redirect(
+        `https://fix-your-motoro.vercel.app/dashboard/user/user_add_to_card/checkout/success/${tranId}`
+      );
     } else {
       res.status(404).json({ error: "Transaction not found" });
     }
@@ -101,7 +103,9 @@ const paymentFailure = async (req, res) => {
 
     await confirmOrderCollection.deleteOne({ transactionId: tranId });
 
-    res.redirect(`URL for failure page`);
+    res.redirect(
+      `https://fix-your-motoro.vercel.app/dashboard/user/user_add_to_card/checkout/fail/${tranId}`
+    );
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Payment processing failed" });

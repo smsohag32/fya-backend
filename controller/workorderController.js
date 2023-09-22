@@ -10,6 +10,14 @@ const getWorkOrders = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+const getOrders = async (req, res) => {
+  try {
+    const order = await WorkOrders.find().sort({ orderTime: -1 });
+    res.send(order);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
 const postOrder = async (req, res) => {
   try {
@@ -43,4 +51,4 @@ const updateStatus = async (req, res) => {
   }
 };
 
-module.exports = { getWorkOrders, postOrder, updateStatus };
+module.exports = { getWorkOrders, postOrder, updateStatus, getOrders };
