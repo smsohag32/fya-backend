@@ -1,8 +1,8 @@
 const cartsInfos = require("../models/cartsInfo.js");
-const productInfos = require("../models/ProductsInfo.js")
+const productInfos = require("../models/ProductsInfo.js");
 const getCarts = async (req, res) => {
   try {
-      const cartsData = await cartsInfos.find();
+    const cartsData = await cartsInfos.find();
 
     res.send(cartsData);
   } catch (error) {
@@ -10,16 +10,14 @@ const getCarts = async (req, res) => {
   }
 };
 const getUserCarts = async (req, res) => {
-    try {
-        
-    const query = { userEmail: req.params.email }
-      const cartsData = await cartsInfos.find(query);
-        res.send(cartsData);
+  try {
+    const query = { userEmail: req.params.email };
+    const cartsData = await cartsInfos.find(query);
+    res.send(cartsData);
   } catch (error) {
     res.status(500).send(error.message);
   }
-}
-
+};
 
 const getCart = async (req, res) => {
   try {
@@ -33,7 +31,7 @@ const getCart = async (req, res) => {
 const deleteCart = async (req, res) => {
   try {
     const id = req.params.id;
-    const query = {_id: id}
+    const query = { _id: id };
     const result = await cartsInfos.deleteOne(query);
     res.send(result);
   } catch (error) {
@@ -41,26 +39,25 @@ const deleteCart = async (req, res) => {
   }
 };
 
-
 const postCart = async (req, res) => {
   try {
     const userEmail = req.params.email;
     const newCart = req.body;
     const productID = newCart.productID;
-    const query = {userEmail: userEmail}
-    const existingCart = await cartsInfos.findOne(query);
-    if (existingCart && existingCart.productID === productID) {
-      return res.send({ message: 'Product already in the cart' });
+    const query = { userEmail: userEmail };
+    const existingCart = await cartsInfos.find(query);
+    const isProductAlreadyInCart = existingCart.some(
+      (product) => product?.productID === productID
+    );
+    if (isProductAlreadyInCart) {
+      return res.send({ message: "Product already in the cart" });
     } else {
       await cartsInfos.create(newCart);
-      return res.send("add product successfully")
+      return res.send("add product successfully");
     }
-  
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
 
-
-
-module.exports = { getCarts, postCart ,getCart, getUserCarts, deleteCart};
+module.exports = { getCarts, postCart, getCart, getUserCarts, deleteCart };

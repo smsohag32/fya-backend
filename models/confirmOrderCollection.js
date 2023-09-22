@@ -40,6 +40,9 @@ const confirmSchema = new Schema({
   paidStatus: {
     type: String,
   },
+  transactionId: {
+    type: String,
+  },
 });
 
 const confirmorders =

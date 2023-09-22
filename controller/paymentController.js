@@ -55,7 +55,7 @@ const initiatePayment = async (req, res) => {
 
     // Save payment information to the "confirm order" collection
     const finalOrder = {
-      order,
+      ...order,
       paidStatus: "unpaid",
       transactionId: tran_id,
     };
@@ -76,12 +76,11 @@ const paymentSuccess = async (req, res) => {
   try {
     const tranId = req.params.tranId;
     const query = { transactionId: tranId };
-    const result = await confirmOrderCollection.updateOne(
-      { transactionId: tranId },
-      {
-        $set: { paidStatus: "paid" },
-      }
-    );
+    const updatedDoc = {
+      $set: { paidStatus: "paid" },
+    };
+
+    const result = await confirmOrderCollection.updateOne(query, updatedDoc);
 
     if (result.modifiedCount > 0) {
       res.redirect(
