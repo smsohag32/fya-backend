@@ -132,6 +132,17 @@ const ipnCallback = async (req, res) => {
     res.status(500).json({ error: "IPN processing failed" });
   }
 };
+const cashOn = async (req, res) => {
+  try {
+    const newOrder = req.body;
+    const item = { ...newOrder, paidStatus: "cashOn" };
+    const result = await confirmOrderCollection.create(item);
+    res.send(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "fail to confirm" });
+  }
+};
 
 module.exports = {
   paymentFailure,
@@ -139,4 +150,5 @@ module.exports = {
   initiatePayment,
   paymentCancel,
   ipnCallback,
+  cashOn,
 };

@@ -6,6 +6,7 @@ const {
   paymentFailure,
   paymentCancel,
   ipnCallback,
+  cashOn,
 } = require("../controller/paymentController.js");
 
 /// Route for initiating payment
@@ -22,5 +23,6 @@ router.post("/payment/cancel", paymentCancel);
 
 // Route for IPN (Instant Payment Notification) callback
 router.post("/ipn", ipnCallback);
+router.post("/payment/cash-on", cashOn);
 
 module.exports = router;
