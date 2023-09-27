@@ -1,7 +1,7 @@
 const SSLCommerzPayment = require("sslcommerz-lts");
 const mongoose = require("mongoose");
-const WorkOrdersInfo = require("../models/WorkOrders.js");
 const confirmOrderCollection = require("../models/confirmOrderCollection.js");
+const cartsInfos = require("../models/cartsInfo.js");
 const store_passwd = process.env.STORE_PASS;
 const store_id = process.env.STORE_ID;
 const { ObjectId } = mongoose.Types;
@@ -11,7 +11,6 @@ const initiatePayment = async (req, res) => {
   try {
     const totalPaymentBDT = req.body.totalPaymentBDT;
     const order = req.body;
-
     const tran_id = new ObjectId().toString();
 
     const data = {
@@ -55,16 +54,16 @@ const initiatePayment = async (req, res) => {
 
     // Save payment information to the "confirm order" collection
     const finalOrder = {
-      ...order,
+      order,
       paidStatus: "unpaid",
       transactionId: tran_id,
     };
 
     await confirmOrderCollection.create(finalOrder);
-
+    const email = order.customerEmail;
+    const newQuery = { userEmail: email };
+    await cartsInfos.deleteMany(newQuery);
     // Remove previous order information for the user's email
-    const user_email = order.customerEmail;
-    await WorkOrdersInfo.deleteMany({ user_email: user_email });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Payment initiation failed" });
@@ -84,7 +83,7 @@ const paymentSuccess = async (req, res) => {
 
     if (result.modifiedCount > 0) {
       res.redirect(
-        `https://fix-your-motoro.vercel.app/dashboard/user/user_add_to_card/checkout/success/${tranId}`
+        `https://fix-your-motoro.vercel.app/dashboard/user/user_add_to_card/checkout/payment/success/${tranId}`
       );
     } else {
       res.status(404).json({ error: "Transaction not found" });
@@ -103,7 +102,7 @@ const paymentFailure = async (req, res) => {
     await confirmOrderCollection.deleteOne({ transactionId: tranId });
 
     res.redirect(
-      `https://fix-your-motoro.vercel.app/dashboard/user/user_add_to_card/checkout/fail/${tranId}`
+      `https://fix-your-motoro.vercel.app/dashboard/user/user_add_to_card/checkout/payment/fail/${tranId}`
     );
   } catch (error) {
     console.error(error);
